@@ -1,10 +1,25 @@
 import './App.css';
-import HotelCard from './Components/Hotels';
+import HotelCard from './Components/HotelCard';
+import { BrowserRouter, Router, Route, Routes } from 'react-router-dom';
+import Hotels from './Components/Hotels';
 
+import CheckOut from './Components/CheckOut';
+import Info from './Components/Info';
 function App() {
   return (
     <>
-    <HotelCard/>
+    
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Hotels/>}/>
+        <Route path='/hotelCard/:id' element={<HotelCard/>}/>
+        <Route path='/checkout' element={<CheckOut/>}/>
+        <Route path='/Info/' element={<Info/>}></Route>
+
+      </Routes>
+    </BrowserRouter> 
+
+    {/* <CheckOut/> */}
     </>
   );
 }

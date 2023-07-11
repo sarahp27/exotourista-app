@@ -114,8 +114,10 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import NavBar from './NavBar';
+import { Link, Route, useNavigate,useParams } from 'react-router-dom';
 import styles from './Hotels.module.css';
+// import { useNavigate } from 'react-router-dom';
 
 export default function Hotels() {
   const [hotels, setHotels] = useState([]);
@@ -123,6 +125,7 @@ export default function Hotels() {
   const [experience, setExperience] = useState('');
   const [poolRequired, setPoolRequired] = useState(false);
   const [filteredHotels, setFilteredHotels] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:8085/hotels/getAll")
@@ -150,15 +153,20 @@ export default function Hotels() {
     applyFilters();
   };
 
+  function handleNavigate() {
+    console.log('hello')
+    navigate('/hotelCard');
+  }
+
   const applyFilters = () => {
     let filteredData = hotels;
 
     if (city) {
-      filteredData = filteredData.filter((hotel) => hotel.city === city);
+      filteredData = filteredData.filter((hotel) => hotel.location.toLowerCase() === city.toLowerCase());
     }
 
     if (experience) {
-      filteredData = filteredData.filter((hotel) => hotel.experience === experience);
+      filteredData = filteredData.filter((hotel) => hotel.experiance.toLowerCase() === experience.toLowerCase());
     }
 
     if (poolRequired) {
@@ -167,12 +175,15 @@ export default function Hotels() {
 
     setFilteredHotels(filteredData);
   };
-
+  // const { id } = useParams();
+  // const hotel = hotels.find((hotel) => hotel.id === id);
+  //   if (!hotel) {
+  //   return <div>Loading...</div>;
+  // }
   return (
-    <div className={styles.main}>
-      <div className={styles.navbar}>
-        <h1>Extourista</h1>
-      </div>
+    <>
+
+    <NavBar/>
 
       <div className={styles.form}>
         <div>
@@ -196,7 +207,7 @@ export default function Hotels() {
         </div>
 
         <div>
-          <label>
+          <label>  
             <input type="checkbox" checked={poolRequired} onChange={handleCheckboxChange} />
             Pool requirement
           </label>
@@ -211,35 +222,49 @@ export default function Hotels() {
         {filteredHotels.map((hotel) => (
           <div className={styles.api} key={hotel.id}>
             <img src={hotel.image} alt={hotel.name} />
-            <div style={{display:"flex"}}>
-      
+            <div style={{ marginLeft: "10px", marginRight: "10px" }}>
+
+              <div style={{ display: "flex" }} className={styles.hotelCard}>
+
                 <h2> {hotel.name}</h2>
                 <h2> ${hotel.price}</h2>
-                </div>
-            <p>
-              <b>Short Description: </b>
-              {hotel.shortDesc}
-            </p>
-            <p>
-              <b>Location: </b>
-              {hotel.location}
-            </p>
-            <p>
-              <b>Experience: </b>
-              {hotel.experiance}
-            </p>
-            <p>
-              <b>Pool: </b>
-              {hotel.pool ? "Yes" : "No"}
-            </p>
-           
-            <p>
+              </div>
+              <p>
+                <b>Short Description: </b>
+                {hotel.shortDesc}
+              </p>
+              <p>
+                <b>Location: </b>
+                {hotel.location}
+              </p>
+              <p>
+                <b>Experience: </b>
+                {hotel.experiance}
+              </p>
+              <p>
+                <b>Pool: </b>
+                {hotel.pool ? "Yes" : "No"}
+              </p>
+
+              {/* <p>
               <b>Description: </b>
               {hotel.longDesc}
-            </p>
+            </p> */}
+               <Link to={`/hotelCard/${hotel.id}`}>
+                <button style={{
+                  border: "none",
+                  color: "white",
+                  backgroundColor: "black",
+                  borderRadius: "4px",
+                  padding: '5px',
+                  margin: "10px"
+                }}>BookNow</button>
+              </Link>
+            </div>
           </div>
         ))}
       </div>
-    </div>
+      
+</>
   );
 }

@@ -32,11 +32,13 @@
 
 }
 .api{
-  background-color: rgb(136, 185, 187);
-  padding:30px;
+  background-color: white;
+  /* border: 0.2px solid; */
+  padding:0px 0px 0px 0px;
   width: 500px;
-  border-radius: 10px;
+  border-radius: 5px;
   margin: 30px 0px 10px 30px;
+  box-shadow: 10px 10px 8px #888888;
   
 }
 
@@ -46,5 +48,27 @@
 
 .api img{
   height: 400px;
-  width: 400px;
+  width: 500px;
+}
+
+.hotelCard {
+  
+}
+
+.check{
+  margin: 50px;
+  
+}
+
+.formGroup{
+  padding: 10px;
+}
+
+.check button{
+  padding: 10px;
+  background-color: rgb(145, 175, 145);
+  border-radius: 10px;
+  border: none;
+
+
 }

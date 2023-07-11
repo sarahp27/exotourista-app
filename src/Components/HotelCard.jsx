@@ -78,16 +78,16 @@ export default function HotelCard() {
       </div> */}
 
 <div>
-  {hotels.map((h)=> (
+  
 <div>
-<h2>{h.name}</h2>
-<img src={h.image} alt={h.name} />
-<p>Location: {h.location}</p>
-<p>Experience: {h.experience}</p>
-<p>Pool: {h.pool ? 'Yes' : 'No'}</p>
-<p>Price: {h.price}</p>
+<h2>{hotel.name}</h2>
+<img src={hotel.image} alt={hotel.name} />
+<p>Location: {hotel.location}</p>
+<p>Experience: {hotel.experience}</p>
+<p>Pool: {hotel.pool ? 'Yes' : 'No'}</p>
+<p>Price: {hotel.price}</p>
 </div>
-  ))}
+ 
   
     </div>
 
